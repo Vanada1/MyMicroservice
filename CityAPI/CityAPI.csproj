@@ -6,6 +6,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
+    <UserSecretsId>City-API-cdce8d3d-e1d3-4cbf-bc53-f47bcfd1da92</UserSecretsId>
     <GenerateDependencyFile>true</GenerateDependencyFile>
 	  <LangVersion>latestMajor</LangVersion>
   </PropertyGroup>

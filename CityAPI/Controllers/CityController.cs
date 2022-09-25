@@ -23,7 +23,7 @@ public class CityController : ControllerBase
 		_logger = logger;
 	}
 
-	[HttpGet(Name = "GetCity")]
+	[HttpGet]
 	public CityForecast Get()
 	{
 		var i = Random.Shared.Next(Summaries.Length);

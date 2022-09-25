@@ -8,12 +8,12 @@ FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
 COPY ["CityAPI.csproj", "CityAPI/"]
 RUN dotnet restore "CityAPI/CityAPI.csproj"
-COPY . .
 WORKDIR "/src/CityAPI"
+COPY . .
 RUN dotnet build "CityAPI.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "CityAPI.csproj" -c Release -o /app/publish /p:UseAppHost=false 
+RUN dotnet publish "CityAPI.csproj" -c Release -o /app/publish /p:UseAppHost=false --self-contained false --no-restore
 
 FROM base AS final
 WORKDIR /app
