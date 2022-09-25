@@ -6,7 +6,7 @@ EXPOSE 80
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
-COPY ["WeatherAPI/WeatherAPI.csproj", "WeatherAPI/"]
+COPY ["WeatherAPI.csproj", "WeatherAPI/"]
 RUN dotnet restore "WeatherAPI/WeatherAPI.csproj"
 COPY . .
 WORKDIR "/src/WeatherAPI"

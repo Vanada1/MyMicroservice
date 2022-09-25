@@ -28,7 +28,6 @@ static_resources:
               - match:
                   prefix: "/c"
                 route:
-                  #host_rewrite: www.google.com
                   prefix_rewrite: "/weather"
                   cluster: weather_service
           http_filters:
@@ -47,10 +46,6 @@ static_resources:
         - endpoint:
             address:
               socket_address:
-                address: localhost
-                port_value: 443
-    transport_socket:
-      name: envoy.transport_sockets.tls
-      typed_config:
-        "@type": type.googleapis.com/envoy.api.v2.auth.UpstreamTlsContext
-        sni: www.google.com
+                address: cityapi
+                port_value: 80
+    
