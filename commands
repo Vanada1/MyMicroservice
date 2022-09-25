@@ -1,0 +1,6 @@
+dotnet user-secrets set "Kestrel:Certificates:Development:Password" "123"
+
+
+dotnet dev-certs https -ep $env:USERPROFILE\.aspnet\https\CityAPI.pfx -p 123
+dotnet dev-certs https -ep $env:USERPROFILE\.aspnet\https\WeatherAPI.pfx -p 123
+dotnet dev-certs https --trust
