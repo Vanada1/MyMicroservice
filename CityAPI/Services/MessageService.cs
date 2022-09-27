@@ -5,9 +5,9 @@ namespace CityAPI.Services;
 
 public class MessageService : IMessageService
 {
-	ConnectionFactory _factory;
-	IConnection _conn;
-	IModel _channel;
+	readonly ConnectionFactory _factory;
+	readonly IConnection _conn;
+	readonly IModel _channel;
 	public MessageService()
 	{
 		Console.WriteLine("about to connect to rabbit");
