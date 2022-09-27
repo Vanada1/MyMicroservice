@@ -1,3 +1,4 @@
+using MessageService;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CityAPI.Controllers;
@@ -18,9 +19,12 @@ public class CityController : ControllerBase
 
 	private readonly ILogger<CityController> _logger;
 
+	private readonly IMessageService _messageService = new MessageService.MessageService();
+
 	public CityController(ILogger<CityController> logger)
 	{
 		_logger = logger;
+
 	}
 
 	[HttpGet]
@@ -33,5 +37,12 @@ public class CityController : ControllerBase
 			PeopleCount = PeopleCount[i],
 			CityName = Summaries[i]
 		};
+	}
+
+	[HttpPost]
+	public void Post([FromBody] string payload)
+	{
+		Console.WriteLine("received a Post: " + payload);
+		_messageService.Enqueue(payload);
 	}
 }
