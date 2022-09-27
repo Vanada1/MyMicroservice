@@ -1,7 +1,7 @@
 ﻿using System.Text;
 using RabbitMQ.Client;
 
-namespace MessageService;
+namespace CityAPI.Services;
 
 public class MessageService : IMessageService
 {

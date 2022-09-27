@@ -1,5 +1,7 @@
-using MessageService;
 using Microsoft.AspNetCore.Mvc;
+using IMessageService = CityAPI.Services.IMessageService;
+using System.Text.Json;
+using System.Text;
 
 namespace CityAPI.Controllers;
 
@@ -19,7 +21,7 @@ public class CityController : ControllerBase
 
 	private readonly ILogger<CityController> _logger;
 
-	private readonly IMessageService _messageService = new MessageService.MessageService();
+	private readonly IMessageService _messageService = new Services.MessageService();
 
 	public CityController(ILogger<CityController> logger)
 	{
@@ -31,18 +33,21 @@ public class CityController : ControllerBase
 	public CityForecast Get()
 	{
 		var i = Random.Shared.Next(Summaries.Length);
-		return new CityForecast
+		var cityForecast = new CityForecast
 		{
 			Date = DateTime.Now,
 			PeopleCount = PeopleCount[i],
 			CityName = Summaries[i]
 		};
+		var json = JsonSerializer.Serialize(cityForecast);
+		_messageService.Enqueue(json);
+		return cityForecast;
 	}
 
 	[HttpPost]
 	public void Post([FromBody] string payload)
 	{
 		Console.WriteLine("received a Post: " + payload);
-		_messageService.Enqueue(payload);
+		//_messageService.Enqueue(payload);
 	}
 }

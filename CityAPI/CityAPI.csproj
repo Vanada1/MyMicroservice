@@ -21,8 +21,4 @@
     <Folder Include="Controllers\" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\MessageService\MessageService.csproj" />
-  </ItemGroup>
-
 </Project>

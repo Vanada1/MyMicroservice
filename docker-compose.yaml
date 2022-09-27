@@ -12,6 +12,9 @@ services:
       - ./Envoy/key.pem:/etc/ssl/certs/key.pem
   cityapi:
     build: CityAPI/
+    restart: always
+    depends_on:
+      - "rabbitmq"
     ports:
       - "8080:80"
       - "8081:443"
@@ -25,6 +28,9 @@ services:
 
   weatherapi:
     build: WeatherAPI/
+    restart: always
+    depends_on:
+      - "rabbitmq"
     ports:
       - "8082:80"
       - "8083:443"

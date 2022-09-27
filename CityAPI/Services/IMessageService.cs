@@ -1,4 +1,4 @@
-﻿namespace MessageService;
+﻿namespace CityAPI.Services;
 
 public interface IMessageService
 {

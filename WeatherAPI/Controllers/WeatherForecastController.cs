@@ -14,28 +14,13 @@ namespace WeatherAPI.Controllers
 		"Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
 	};
 
+		private static string _message = string.Empty;
+
 		private readonly ILogger<WeatherForecastController> _logger;
 
 		public WeatherForecastController(ILogger<WeatherForecastController> logger)
 		{
 			_logger = logger;
-		}
-
-		//[HttpGet]
-		//public IEnumerable<WeatherForecast> Get()
-		//{
-		//	return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-		//	{
-		//		Date = DateTime.Now.AddDays(index),
-		//		TemperatureC = Random.Shared.Next(-20, 55),
-		//		Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-		//	})
-		//	.ToArray();
-		//}
-
-		[HttpGet]
-		public string Get()
-		{
 			var factory = new ConnectionFactory
 			{
 				HostName = "rabbitmq", Port = 5672,
@@ -54,13 +39,32 @@ namespace WeatherAPI.Controllers
 			consumer.Received += (model, ea) =>
 			{
 				var body = ea.Body;
-				var message = Encoding.UTF8.GetString(body.ToArray());
-				Console.WriteLine($" [x] Received from Rabbit: {message}");
+				_message = Encoding.ASCII.GetString(body.ToArray());
+				_message = $" [x] Received from Rabbit: {_message}";
+				Console.WriteLine(_message);
 			};
 
-			return channel.BasicConsume(queue: "hello",
-				autoAck: true,
+			channel.BasicConsume(queue: "hello",
+				autoAck: false,
 				consumer: consumer);
+		}
+
+		//[HttpGet]
+		//public IEnumerable<WeatherForecast> Get()
+		//{
+		//	return Enumerable.Range(1, 5).Select(index => new WeatherForecast
+		//	{
+		//		Date = DateTime.Now.AddDays(index),
+		//		TemperatureC = Random.Shared.Next(-20, 55),
+		//		Summary = Summaries[Random.Shared.Next(Summaries.Length)]
+		//	})
+		//	.ToArray();
+		//}
+
+		[HttpGet]
+		public string Get()
+		{
+			return _message;
 		}
 	}
 }
